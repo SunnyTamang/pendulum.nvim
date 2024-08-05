@@ -18,7 +18,7 @@ Timer.__index = Timer
 
 function Timer:new()
   local obj = setmetatable({}, Timer)
-  print('well this is from local timer:new')
+  --print('well this is from local timer:new')
   obj.timer = vim.loop.new_timer()
   obj.remaining = 0
   obj.is_running = false
@@ -119,11 +119,9 @@ end
 
 
 
-M.timer_start = function(name)
-  local timer = name
-  print(vim.inspect(timer))
-end
-M.timer_start("Sunny")
+M.setup = function()
+
+
 local timer = Timer.new()
 vim.api.nvim_create_user_command("TimerStart", function(args)
     timer:start(tonumber(args.args))
@@ -142,4 +140,5 @@ end, {})
 vim.api.nvim_create_user_command("TimerRestart", function()
     timer:restart()
 end, {})
+end
 return M
