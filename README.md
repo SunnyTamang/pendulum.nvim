@@ -27,6 +27,8 @@ NVIM >= v0.9.0
 
 Install the plugin with your preferred package manager:
 
+**Lazy**
+
 ```
 -- lazy.nvim
 
@@ -39,3 +41,33 @@ Install the plugin with your preferred package manager:
 }
 
 ```
+
+**Plug**
+```
+-- vim-plug
+call plug#begin()
+    Plug 'SunnyTamang/pendulum.nvim'
+call plug#end()
+
+lua require("pendulum").setup()
+
+```
+
+## Usage
+
+- ```:TimerStart <some number>``` starts the timer
+- ```:TimerPause``` pause the timer
+- ```:TimerResume``` resumes the timer from where it was paused
+- ```:TimerStop``` stops the timer
+- ```:TimerRestart``` restarts the timer with the last used start time 
+
+Alternatively, you can also use Lua equivalents.
+
+```
+vim.keymap.set('n', 'timer' , ':TimerStart<CR>', { desc = 'Start the timer', callback = start_timer_with_prompt, noremap = true, silent = true })
+vim.keymap.set('n', '<leader>ts', ':TimerStop<CR>', { desc = 'Stop the timer' })
+vim.keymap.set('n', '<leader>tp', ':TimerPause<CR>', { desc = 'Pause the timer' })
+vim.keymap.set('n', '<leader>tr', ':TimerResume<CR>', { desc = 'Resume the timer' })
+vim.keymap.set('n', '<leader>tre', ':TimerRestart<CR>', { desc = 'Restart  the timer' })
+```
+
