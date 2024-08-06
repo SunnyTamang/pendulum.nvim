@@ -6,7 +6,10 @@ This becomes crucial for increasing the coding speed and efficiency while enhanc
 
 ```pendulum``` helps you to get zoned in your coding session and have a productive session out of it.
 
-https://github.com/user-attachments/assets/a1b5e1ae-b78a-4b84-b9d4-9425398b63bf
+
+
+https://github.com/user-attachments/assets/1c9c6452-87aa-47f5-a8c8-5c3f016ce20f
+
 
 
 ## Features
