@@ -10,11 +10,11 @@ local function start_timer_with_prompt()
 end
     
 --vim.keymap.set('n',"asdf", ":echo 'hello'")
-vim.keymap.set({ 'n', 'i' }, 'timer' , ':TimerStart<CR>', { desc = 'Start the timer', callback = start_timer_with_prompt, noremap = true, silent = true })
-vim.keymap.set({ 'n', 'i' }, '<leader>ts', ':TimerStop<CR>', { desc = 'Stop the timer' })
-vim.keymap.set({ 'n', 'i' }, '<leader>tp', ':TimerPause<CR>', { desc = 'Pause the timer' })
-vim.keymap.set({ 'n', 'i' }, '<leader>tr', ':TimerResume<CR>', { desc = 'Resume the timer' })
-vim.keymap.set({ 'n', 'i' }, '<leader>tre', ':TimerRestart<CR>', { desc = 'Restart  the timer' })
+vim.keymap.set('n', 'timer' , ':TimerStart<CR>', { desc = 'Start the timer', callback = start_timer_with_prompt, noremap = true, silent = true })
+vim.keymap.set('n', '<leader>ts', ':TimerStop<CR>', { desc = 'Stop the timer' })
+vim.keymap.set('n', '<leader>tp', ':TimerPause<CR>', { desc = 'Pause the timer' })
+vim.keymap.set('n', '<leader>tr', ':TimerResume<CR>', { desc = 'Resume the timer' })
+vim.keymap.set('n', '<leader>tre', ':TimerRestart<CR>', { desc = 'Restart  the timer' })
 
 
 
