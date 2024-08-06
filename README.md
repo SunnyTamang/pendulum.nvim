@@ -6,6 +6,9 @@ This becomes crucial for increasing the coding speed and efficiency while enhanc
 
 ```pendulum``` helps you to get zoned in your coding session and have a productive session out of it.
 
+![](~/nvim_plugin_dev/Screen\ Recording\ 2024-08-06\ at\ 12.23.28 PM.mov)
+
+
 ## Features
 
 - Set timer for a specified duration
