@@ -114,7 +114,7 @@ end
 function Timer:restart()
     self:stop()
     self:start(self.duration)
-    print("Timer restarted")
+    print("Timer restarted!")
 end
 
 
