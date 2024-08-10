@@ -40,7 +40,7 @@ function Timer:start(duration)
   self.is_paused = false
   self.start_time = vim.loop.now()
   self.timer:start(0,1000, vim.schedule_wrap(function() self:tick() end))
-  print("Timer started for " .. duration .. " seconds")
+  --print("Timer started for " .. duration .. " seconds")
 end
 
 function Timer:tick()
@@ -120,7 +120,7 @@ end
 function Timer:restart()
     self:stop()
     self:start(self.duration)
-    print("Timer restarted!")
+    --print("Timer restarted!")
 end
 
 function Timer:display_remaining_time()
