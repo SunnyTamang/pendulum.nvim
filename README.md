@@ -65,7 +65,7 @@ lua require("pendulum").setup()
 - ```:TimerPause``` pause the timer
 - ```:TimerResume``` resumes the timer from where it was paused
 - ```:TimerStop``` stops the timer
-- ```:TimerRestart``` restarts the timer with the last used start time! 
+- ```:TimerRestart``` restarts the timer with the last used start time 
 
 Alternatively, you can also use Lua equivalents.
 
