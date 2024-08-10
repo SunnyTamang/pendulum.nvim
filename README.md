@@ -28,7 +28,7 @@ More improvements is on its way.
 Future implmentations
 
 - [x] ~~Added support for minutes and seconds~~
-- [ ] Tempelates selection
+- [ ] Templates selection
 - [ ] Anything if comes in mind
 
 
