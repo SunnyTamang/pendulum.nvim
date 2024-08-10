@@ -25,7 +25,7 @@ https://github.com/user-attachments/assets/1c9c6452-87aa-47f5-a8c8-5c3f016ce20f
 ```pendulum``` is a very minimialistic timer plugin to create a productive session using the timer.
 Currently it only uses timer input values in seconds only. But more improvements is on its way
 
-~ [x] Something
+[x] Something
 
 
 ## Requirements
