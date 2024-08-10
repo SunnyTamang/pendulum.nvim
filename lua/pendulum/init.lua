@@ -29,18 +29,18 @@ function Timer:new()
   return obj
 end
 
-function Timer:start(seconds)
+function Timer:start(duration)
   if self.is_running then
-    print("Timer is already running or paused")
+    print("Timer is already running")
     return
   end
-  self.duration = seconds
-  self.remaining = seconds
+  self.duration = duration
+  self.remaining = duration
   self.is_running = true
   self.is_paused = false
   self.start_time = vim.loop.now()
   self.timer:start(0,1000, vim.schedule_wrap(function() self:tick() end))
-  print("Timer started for " .. seconds .. " seconds")
+  --print("Timer started for " .. duration .. " seconds")
 end
 
 function Timer:tick()
@@ -52,7 +52,8 @@ function Timer:tick()
         self:stop()
         print("Time's up!")
     else
-        print(string.format("Time left: %d seconds", math.ceil(self.remaining)))
+        self:display_remaining_time()
+        --print(string.format("Time left: %d seconds", math.ceil(self.remaining)))
     end
   end
 end
@@ -86,8 +87,13 @@ function Timer:pause()
   --self.timer:stop()
   self.pause_time = vim.loop.now()
   --self.remaining = self.remaining - (self.pause_time - self.start_time) / 1000
+  
   self.remaining = self.duration -((self.pause_time - self.start_time)/1000)
-  print("Timer paused with " .. math.ceil(self.remaining) .. " seconds remaining")
+  local minutes = math.floor(self.remaining / 60)
+  local seconds = math.floor(self.remaining % 60)
+
+ -- print("Timer paused with " .. math.ceil(self.remaining) .. " seconds remaining")
+  print("Timer paused with " .. minutes .. ":" .. seconds .. " remaining")
 end
 function Timer:resume()
     if self.is_running then
@@ -114,10 +120,14 @@ end
 function Timer:restart()
     self:stop()
     self:start(self.duration)
-    print("Timer restarted!")
+    --print("Timer restarted!")
 end
 
-
+function Timer:display_remaining_time()
+  local minutes = math.floor(self.remaining / 60)
+  local seconds = math.floor(self.remaining % 60)
+  print(string.format("Time remaining: %02d:%02d", minutes, seconds))
+end
 
 M.setup = function()
 
