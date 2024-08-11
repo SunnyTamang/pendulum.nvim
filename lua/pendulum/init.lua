@@ -82,7 +82,7 @@ function Timer:pause()
   end
   self.timer:stop()
   self.is_paused = true
-  --self.timer:stop()
+  --self.timGer:stop()
   self.is_running = false
   --self.timer:stop()
   self.pause_time = vim.loop.now()
@@ -129,6 +129,42 @@ function Timer:display_remaining_time()
   print(string.format("Time remaining: %02d:%02d", minutes, seconds))
 end
 
+--Template function goes here
+--function Timer:start_timer_template(duration)
+--  --local timer = Timer:new()
+--  self:start(duration)
+--end
+function Timer:show_template_menu()
+  local choices = {
+    "1 minute",
+    "2 minutes",
+    "5 minutes",
+    "20 minutes",
+    "25 minutes"
+
+  }
+  local durations = {
+    ["1 minute"] = 60,
+    ["2 minutes"] = 120,
+    ["5 minutes"] = 300,
+    ["20 minutes"] = 1200,
+    ["25 minutes"] = 1500
+  }
+  vim.ui.select(choices, { prompt = "Select timer template:" }, function(choice)
+    if choice then
+      --self.start_timer_template(durations[choice])
+      self:start(durations[choice])
+    else
+      print("no template selected")
+      return
+    end
+      
+  end)
+end
+ 
+
+--
+
 M.setup = function()
 
 
@@ -150,5 +186,10 @@ end, {})
 vim.api.nvim_create_user_command("TimerRestart", function()
     timer:restart()
 end, {})
+
+vim.api.nvim_create_user_command("TimerTemplate", function()
+    timer:show_template_menu()
+end, {})
+
 end
 return M

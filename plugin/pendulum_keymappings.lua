@@ -29,8 +29,10 @@ local function start_timer_with_prompt()
   --  print("Invalid time input")
   --end
 end
-    
+--local Timer = require("pendulum.init")
+   
 --vim.keymap.set('n',"asdf", ":echo 'hello'")
+vim.keymap.set('n', '<leader>tt', ':TimerTemplate<CR>', { desc = 'select timer template', })
 vim.keymap.set('n', 'timer' , '', { desc = 'Start the timer', callback = start_timer_with_prompt, noremap = true, silent = true })
 vim.keymap.set('n', '<leader>ts', ':TimerStop<CR>', { desc = 'Stop the timer' })
 vim.keymap.set('n', '<leader>tp', ':TimerPause<CR>', { desc = 'Pause the timer' })
