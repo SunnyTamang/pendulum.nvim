@@ -18,6 +18,7 @@ https://github.com/user-attachments/assets/1c9c6452-87aa-47f5-a8c8-5c3f016ce20f
 - Pause and resume the timer
 - Stop the timer permanently
 - Restart the timer
+- Select from predefine timer templates to kick start timer
   
 
 ## Status 👷‍♂️
@@ -28,7 +29,8 @@ More improvements is on its way.
 Future implementations
 
 - [x] ~~Added support for minutes and seconds~~
-- [ ] Templates selection
+- [x] ~~Templates selection~~
+- [ ] Custom timer
 - [ ] Anything if comes in mind
 
 
@@ -75,7 +77,8 @@ lua require("pendulum").setup()
 - ```:TimerPause``` pause the timer
 - ```:TimerResume``` resumes the timer from where it was paused
 - ```:TimerStop``` stops the timer
-- ```:TimerRestart``` restarts the timer with the last used start time 
+- ```:TimerRestart``` restarts the timer with the last used start time
+- ```:TimerTemplate``` select any predefined timer templates to kick start
 
 Alternatively, you can also use Lua equivalents.
 
@@ -85,5 +88,6 @@ vim.keymap.set('n', '<leader>ts', ':TimerStop<CR>', { desc = 'Stop the timer' })
 vim.keymap.set('n', '<leader>tp', ':TimerPause<CR>', { desc = 'Pause the timer' })
 vim.keymap.set('n', '<leader>tr', ':TimerResume<CR>', { desc = 'Resume the timer' })
 vim.keymap.set('n', '<leader>tre', ':TimerRestart<CR>', { desc = 'Restart  the timer' })
+vim.keymap.set('n', '<leader>tt', ':TimerTemplate<CR>', { desc = 'select timer template' })
 ```
 
