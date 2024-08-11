@@ -26,6 +26,7 @@ function Timer:new()
   obj.start_time = 0
   obj.pause_time = 0
   obj.duration = 0
+  obj.custom_timer_value = 0
   return obj
 end
 
@@ -130,17 +131,136 @@ function Timer:display_remaining_time()
 end
 
 --Template function goes here
---function Timer:start_timer_template(duration)
---  --local timer = Timer:new()
---  self:start(duration)
+--
+--This is for custom timer part
+--
+local custom_timer_file = vim.fn.stdpath("config") .. "/custom_timer.txt"
+local function file_exists(path)
+  local file = io.open(path, 'r')
+  if file then
+    file:close()
+    return true
+  else 
+    return false
+  end
+end
+
+local function ensure_file_exists(path)
+  if not file_exists(path) then
+    local file = io.open(path, "w")
+    if file then
+      file:close()
+    else 
+      print("Error creating custom timer file")
+    end
+  end
+end
+
+function Timer:write_custom_timer_value(value)
+  ensure_file_exists(custom_timer_file)
+  local file = io.open(custom_timer_file, "w")
+  if file then
+    file:write(value)
+    file:close()
+  else
+    print("Error writing to custom timer file")
+    return
+  end
+end
+
+function Timer:read_custom_timer_value()
+    if not file_exists(custom_timer_file) then
+        return nil
+    end
+
+    local file = io.open(custom_timer_file, "r")
+    if file then
+        local value = tonumber(file:read("*a"))
+        file:close()
+        return value
+    else
+        noice.notify("Error reading from custom timer file", "error")
+        return nil
+    end
+end
+
+function Timer:start_custom_timer()
+    local custom_value = self:read_custom_timer_value()
+    print(custom_value)
+    if not custom_value then
+        print("No custom timer value set")
+        return
+    end
+
+    --local timer = Timer:new()
+    self:start(custom_value)
+end
+ 
+
+function Timer:set_custom_timer_value()
+  local time_input = vim.fn.input("Enter custom time (format: mm:ss or ss): ")
+  local minutes, seconds
+
+  if time_input:find(":") then
+        -- Input format is mm:ss
+    minutes, seconds = time_input:match("^(%d+):(%d+)$")
+    if not minutes or not seconds then
+      print("Invalid time format")
+      return
+    end
+    minutes, seconds = tonumber(minutes), tonumber(seconds)
+  else
+        -- Input format is ss
+    seconds = tonumber(time_input)
+    if not seconds then
+      print("Invalid time format")
+      return
+    end
+    minutes = 0
+  end
+
+    -- Calculate the total time in seconds
+  local total_time = (minutes * 60) + seconds
+
+    -- Write the custom timer value to the file
+  self:write_custom_timer_value(total_time)
+  self:start_custom_timer()
+  --print("custom timer set to " .. time_input)    
+end
+
+   
+
+function Timer:load_custom_timer_value()
+  print('custom_timer_value')
+  if not file_exists(custom_timer_file) then
+    return nil
+  end
+  local file = io.open(custom_timer_file, "r")
+  print(file:read("*a"))
+  if file then
+    local value = tonumber(file:read("*a"))
+    file:close()
+    return value
+  else 
+    print("Error reading from custom timer file")
+    return nil
+  end
+end
+
+
+
+--function Timer:start_custom_timer()
+--  local custom_value
 --end
+
 function Timer:show_template_menu()
   local choices = {
     "1 minute",
     "2 minutes",
     "5 minutes",
     "20 minutes",
-    "25 minutes"
+    "25 minutes",
+    "Custom"
 
   }
   local durations = {
@@ -153,7 +273,13 @@ function Timer:show_template_menu()
   vim.ui.select(choices, { prompt = "Select timer template:" }, function(choice)
     if choice then
       --self.start_timer_template(durations[choice])
-      self:start(durations[choice])
+      if choice == "Custom" then 
+        --self:set_custom_timer_value()
+        --print('custom clicked')
+        self:set_custom_timer_value()
+      else
+        self:start(durations[choice])
+      end
     else
       print("no template selected")
       return
@@ -189,6 +315,10 @@ end, {})
 
 vim.api.nvim_create_user_command("TimerTemplate", function()
     timer:show_template_menu()
+end, {})
+
+vim.api.nvim_create_user_command("StartYourCustomTimer", function()
+    timer:start_custom_timer()
 end, {})
 
 end
