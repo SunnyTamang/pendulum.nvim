@@ -10,17 +10,17 @@ This becomes crucial for increasing the coding speed and efficiency while enhanc
 
 https://github.com/user-attachments/assets/1c9c6452-87aa-47f5-a8c8-5c3f016ce20f
 
+![select template](https://github.com/user-attachments/assets/b4d805b7-7aaf-44fb-b689-5a1d1114f59e)
 
-![select template](https://github.com/user-attachments/assets/2fa51ee7-d036-43de-a031-1f7e8dd84eef)
 
 ## Features 🔥
 
-- Set timer for a specified duration
-- Pause and resume the timer
-- Stop the timer permanently
-- Restart the timer
-- Select from predefined timer templates to kick start timer
-- Create your own custom timer and with one kepmap start it right away
+- Set timer for a specified duration ⏲️
+- Pause and resume the timer ⏯️
+- Stop the timer permanently 🛑
+- Restart the timer 🔄
+- Select from predefined timer templates to kick start timer 📎
+- Create your own custom timer and with one kepmap start it right away 🚀
   
 
 ## Status 👷‍♂️
