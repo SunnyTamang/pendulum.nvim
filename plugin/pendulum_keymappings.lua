@@ -1,4 +1,4 @@
-print("Hello")
+--print("Hello")
 
 local function start_timer_with_prompt()
   local time_input = vim.fn.input("Enter time (format: mm:ss or ss): ")
