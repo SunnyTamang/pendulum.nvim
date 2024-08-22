@@ -21,6 +21,7 @@ https://github.com/user-attachments/assets/1c9c6452-87aa-47f5-a8c8-5c3f016ce20f
 - Restart the timer 🔄
 - Select from predefined timer templates to kick start timer 📎
 - Create your own custom timer and with one kepmap start it right away 🚀
+- Display the timer lualine (if installed) :heavy_minus_sign:
   
 
 ## Status 👷‍♂️
@@ -33,6 +34,7 @@ Future implementations
 - [x] ~~Added support for minutes and seconds~~
 - [x] ~~Templates selection~~
 - [x] ~~Custom timer~~
+- [x] ~~Add timer for lualine with configuration~~
 - [ ] Anything if comes in mind
 
 
@@ -55,7 +57,9 @@ Install the plugin with your preferred package manager:
 {
     "SunnyTamang/pendulum.nvim",
     config = function()
-        require"pendulum".setup()
+        require"pendulum".setup({
+            lualine = true, --Enables displaying the timer in Lualine (if lualine installed)
+        })
     end
 
 }
@@ -69,7 +73,23 @@ call plug#begin()
     Plug 'SunnyTamang/pendulum.nvim'
 call plug#end()
 
-lua require("pendulum").setup()
+lua require("pendulum").setup({
+    lualine = true, --Enables displaying the timer in Lualine (if lualine installed) 
+})
+
+```
+
+**Packer**
+```
+use {
+    'SunnyTamang/pendulum.nvim',
+    config = function()
+        require('pendulum').setup({
+            lualine = true,  -- Enables displaying the timer in Lualine (if lualine installed)
+        })
+    end
+}
+
 
 ```
 
