@@ -5,8 +5,8 @@ local function start_timer_with_prompt()
   local minutes, seconds
   if time_input:find(":") then 
     minutes, seconds = time_input:match("^(%d+):(%d+)$")
-    print(minutes)
-    print(seconds)
+    --print(minutes)
+    --print(seconds)
     if not minutes or not seconds then 
       print("Invalid time format")
       return

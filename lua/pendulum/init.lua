@@ -12,13 +12,53 @@ local M = {}
 -- vim.keymap.set(...)
 --
 --
+local plugin_check = require("pendulum.pendulum")
+
+-- Function to update lualine configuration
+local function update_lualine(timer_status)
+    local lualine_installed, lualine = plugin_check.is_plugin_loaded('lualine')
+    if lualine_installed then
+        local timer_section = {
+            timer = {
+                function()
+                    -- Function to get the timer display value
+                    local timer_value = timer_status:thes() -- You need to define this function based on your timer
+                    return timer_value
+                end,
+                color = { gui = "bold" },
+            },
+        }
+
+        -- Update lualine configuration
+        lualine.setup({
+            sections = {
+                lualine_x = { timer_section.timer }
+            },
+        })
+    else
+        print("Lualine is not installed. Timer will not be displayed in lualine.")
+    end
+end
+
 
 local Timer = {}
 Timer.__index = Timer
 
-function Timer:new()
+Timer.config = {
+    lualine = false  -- Default value
+    -- other config options
+}
+
+function Timer:new(user_config)
   local obj = setmetatable({}, Timer)
   --print('well this is from local timer:new')
+  user_config = user_config or {}
+
+    -- Ensure self.config is not nil
+  local default_config = self.config or {}
+
+    -- Merge user config with default config
+  obj.config = vim.tbl_extend("force", default_config, user_config)
   obj.timer = vim.loop.new_timer()
   obj.remaining = 0
   obj.is_running = false
@@ -27,6 +67,8 @@ function Timer:new()
   obj.pause_time = 0
   obj.duration = 0
   obj.custom_timer_value = 0
+  obj.ok, obj.result = plugin_check.is_plugin_loaded('lualine')
+
   return obj
 end
 
@@ -119,15 +161,46 @@ function Timer:resume()
 end
 
 function Timer:restart()
-    self:stop()
+    if self.is_running then
+      --self:stop()
+      self.is_running = false
+      self.is_paused = false
+      self.remaining = 0
+
+    end
+
     self:start(self.duration)
-    --print("Timer restarted!")
+    print("Timer restarted!")
 end
 
 function Timer:display_remaining_time()
+  if self.config.lualine then
+        require('lualine').setup {
+            sections = {
+                lualine_x = {
+                'encoding', 'fileformat', 'filetype',
+                    {
+                        function()
+                        return self:get_time_for_lualine()
+                        end
+                    }
+                }
+            }
+        }
+  else
   local minutes = math.floor(self.remaining / 60)
   local seconds = math.floor(self.remaining % 60)
   print(string.format("Time remaining: %02d:%02d", minutes, seconds))
+  end
+end
+
+function Timer:get_time_for_lualine()
+    if not self.is_running then
+        return ""
+    end
+    local minutes = math.floor(self.remaining / 60)
+    local seconds = math.floor(self.remaining % 60)
+    return string.format("Timer: %02d:%02d", minutes, seconds)
 end
 
 --Template function goes here
@@ -186,7 +259,7 @@ end
 
 function Timer:start_custom_timer()
     local custom_value = self:read_custom_timer_value()
-    print(custom_value)
+    --print(custom_value)
     if not custom_value then
         print("No custom timer value set")
         return
@@ -236,7 +309,7 @@ function Timer:load_custom_timer_value()
     return nil
   end
   local file = io.open(custom_timer_file, "r")
-  print(file:read("*a"))
+  --print(file:read("*a"))
   if file then
     local value = tonumber(file:read("*a"))
     file:close()
@@ -291,10 +364,9 @@ end
 
 --
 
-M.setup = function()
+M.setup = function(user_config)
 
-
-local timer = Timer.new()
+local timer = Timer:new(user_config)
 vim.api.nvim_create_user_command("TimerStart", function(args)
     timer:start(tonumber(args.args))
 end, { nargs = 1 })
