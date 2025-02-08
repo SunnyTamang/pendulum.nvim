@@ -56,12 +56,9 @@ Install the plugin with your preferred package manager:
 
 {
     "SunnyTamang/pendulum.nvim",
-    config = function()
-        require"pendulum".setup({
-            lualine = true, --Enables displaying the timer in Lualine (if lualine installed)
-        })
-    end
-
+    opts = {
+        lualine = true, --Enables displaying the timer in Lualine (if lualine installed)
+    }
 }
 
 ```
